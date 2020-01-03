@@ -28,7 +28,7 @@ Resources:
     Properties:
       Handler: handler.hello
       Runtime: nodejs10.x
-      CodeUri: ./hello
+      CodeUri: .
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref TableName
@@ -55,19 +55,6 @@ Resources:
             Path: /hello/{itemId}
             Method: ANY
       Timeout: 100
-  HelloFunction2:
-    Type: 'AWS::Serverless::Function'
-    Properties:
-      Handler: handler2.hello
-      Runtime: nodejs10.x
-      CodeUri: ./hello
-      Events:
-        HelloAPI:
-          Type: Api
-          Properties:
-            RestApiId: !Ref MyApi
-            Path: /hello2
-            Method: GET
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
