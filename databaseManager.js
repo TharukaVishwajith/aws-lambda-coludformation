@@ -71,3 +71,34 @@ module.exports.updateItem = (itemId, paramsName, paramsValue) => {
 			return response.Attributes;
 		});
 };
+
+
+// module.exports.getItem = itemId => {
+// 	const params = {
+//     TableName: TABLE_NAME,
+//     Limit: 10
+//   };
+
+// 	return dynamo
+// 	    .scan(params)
+// 	    .promise()
+// 	    .then((result) => {
+// 	      return result;
+// 	    });
+// };
+
+
+module.exports.getAll = () => {
+	const params = {
+    TableName: TABLE_NAME,
+    Limit: 10
+  };
+
+	return dynamo
+	    .scan(params)
+	    .promise()
+	    .then((result) => {
+	      return result;
+	    });
+};
+

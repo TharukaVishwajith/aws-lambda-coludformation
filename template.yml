@@ -55,6 +55,67 @@ Resources:
             Path: /hello/{itemId}
             Method: ANY
       Timeout: 100
+  ModelSearchFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: handler.modelSearchService
+      Runtime: nodejs10.x
+      CodeUri: .
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TableName
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TableName  
+      Events:
+        SearchModelAPI:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /get-car-model/{modelName}
+            Method: GET
+      Timeout: 100
+  PriceRetrievalFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: handler.priceRetrievalService
+      Runtime: nodejs10.x
+      CodeUri: .
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TableName
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TableName  
+      Events:
+        SearchModelAPI:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /get-car-price/{itemId}
+            Method: GET
+      Timeout: 100
+  OptionsRetrievalFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: handler.optionsRetrievalService
+      Runtime: nodejs10.x
+      CodeUri: .
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TableName
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref TableName  
+      Events:
+        SearchModelAPI:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApi
+            Path: /get-car-options/{itemId}
+            Method: GET
+      Timeout: 100
+
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
     Properties:
