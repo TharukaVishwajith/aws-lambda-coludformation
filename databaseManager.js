@@ -4,6 +4,7 @@ const AWS = require('aws-sdk');
 let dynamo = new AWS.DynamoDB.DocumentClient();
 
 const TABLE_NAME = process.env.TABLE_NAME;
+const TABLE_NAME1 = process.env.TABLE_NAME1;
 
 module.exports.initializateDynamoClient = newDynamo => {
 	dynamo = newDynamo;
@@ -72,22 +73,6 @@ module.exports.updateItem = (itemId, paramsName, paramsValue) => {
 		});
 };
 
-
-// module.exports.getItem = itemId => {
-// 	const params = {
-//     TableName: TABLE_NAME,
-//     Limit: 10
-//   };
-
-// 	return dynamo
-// 	    .scan(params)
-// 	    .promise()
-// 	    .then((result) => {
-// 	      return result;
-// 	    });
-// };
-
-
 module.exports.getAll = () => {
 	const params = {
     TableName: TABLE_NAME,
@@ -102,3 +87,16 @@ module.exports.getAll = () => {
 	    });
 };
 
+module.exports.getAllCarModels = () => {
+	const params = {
+    TableName: TABLE_NAME1,
+    Limit: 10
+  };
+
+	return dynamo
+	    .scan(params)
+	    .promise()
+	    .then((result) => {
+	      return result;
+	    });
+};
